@@ -8,42 +8,48 @@ import java.util.*;
 
 public class MegaSena{
   
-    public static final int NUMEROS = 6;
-    public static final int APOSTAS = 10;
-    public static final int LIMITE = 60;
-    public static void main(String arg[]){
+  public static final int NUMBERS = 6;
+  public static final int BETS = 10;
+  public static final int LIMIT = 60;
+  public static void main(String arg[]){
         
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    Scanner sc = new Scanner(System.in);
+    int loops = sc.nextInt();
 
-        for(int t = 0; t < n; t++){
-            for(int i = 0; i < APOSTAS; i++){
+    for(int t = 0; t < loops; t++){
+          
+      for(int i = 0; i < BETS; i++){
+        int[] valores = new int[NUMBERS];  
+        
+        makeBat(valores);
+        
+        Arrays.sort(valores);
 
-                int[] valores = new int[NUMEROS];
-                
-                Random rd = new Random();
-                for(int j = 0; j < 6; j++){
-                    int sorteio = rd.nextInt(LIMITE - 1) + 1;
-                    if(!contem(valores, sorteio)){
-                      valores[j] = sorteio;     
-                    }else{
-                      j--;
-                    }
-                }
+        imprimeAposta(valores);
+      }
+      System.out.println("-----------------");
+    }
+    sc.close();
+  }
 
-                Arrays.sort(valores);
+    public static void makeBat(int[] valores){
+      Random rd = new Random();
 
-                imprimeAposta(valores);
-              }
-            System.out.println("-----------------");
+      for(int j = 0; j < NUMBERS; j++){
+        int sorteio = rd.nextInt(LIMIT - 1) + 1;
+        if(!contem(valores, sorteio)){
+          valores[j] = sorteio;     
+        }else{
+          j--;
         }
+      }
     }
 
     public static boolean contem(int[] array, int numero) {
       for (int i : array) {
-          if (i == numero) {
-              return true;
-          }
+        if (i == numero) {
+          return true;
+        }
       }
       return false;
   }
